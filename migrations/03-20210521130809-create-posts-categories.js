@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('PostsCategories', {
+    await queryInterface.createTable('postsCategories', {
 
       // logging: (sql, queryObject) => {
       //   sendToElasticAndLogToConsole(sql, queryObject)
@@ -12,7 +12,7 @@ module.exports = {
       postId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'BlogPosts',
+          model: 'Posts',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -32,6 +32,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('PostsCategories');
+    await queryInterface.dropTable('postsCategories');
   }
 };
