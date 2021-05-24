@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: { type: DataTypes.INTEGER, foreignKey: true },
   },
   {
-    tableName: 'Posts',
+    tableName: 'BlogPosts',
     createdAt: 'published',
     updatedAt: 'updated',
   });
