@@ -46,6 +46,14 @@ const validateField = (field, fieldname) => {
 //   }
 // };
 
+const getAll = async (headers) => {
+  verifyToken(headers);
+
+  const categories = await Category.findAll();
+
+  return categories;
+};
+
 // const getById = async (id) => {
 //   const result = await productModel.getById(id);
 
@@ -79,6 +87,7 @@ const add = async ({ headers, body: { name } }) => {
 // };
 
 module.exports = {
+  getAll,
   // getById,
   add,
   // update,

@@ -1,6 +1,6 @@
 const categoriesService = require('../services/categoriesService');
 
-// const OK = 200;
+const OK = 200;
 const CREATE = 201;
 const BAD_REQUEST = 400;
 const UNAUTHORIZED = 401;
@@ -13,16 +13,15 @@ const UNAUTHORIZED = 401;
 //   },
 // };
 
-// const getAll = async (_req, res) => {
-//   try {
-//     const results = await productsModel.getAll();
+const getAll = async (req, res) => {
+  try {
+    const results = await categoriesService.getAll(req.headers);
 
-//     res.status(OK).json({ products: results });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(ERROR).json({ message: error.message });
-//   }
-// };
+    return res.status(OK).json(results);
+  } catch (error) {
+    return res.status(UNAUTHORIZED).json({ message: error.message });
+  }
+};
 
 // const getById = async (req, res) => {
 //   try {
@@ -95,7 +94,7 @@ const add = async (req, res) => {
 // };
 
 module.exports = {
-  // getAll,
+  getAll,
   // getById,
   add,
   // update,
