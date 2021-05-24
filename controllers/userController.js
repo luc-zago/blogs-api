@@ -1,4 +1,3 @@
-// const salesModel = require('../models/salesModel');
 const userService = require('../services/userService');
 
 const OK = 200;

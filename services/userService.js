@@ -45,11 +45,6 @@ const verifyToken = (headers) => {
   }
   const { authorization } = headers;
   jwt.decodifyToken(authorization);
-  // if (!decoded) {
-  //   throw new Error('Expired or invalid token');
-  // }
-  // const user = await userModel.getUserByMail(decoded.email);
-  // return user;
 };
 
 //   if (typeof quantity !== 'number'
@@ -100,7 +95,7 @@ const add = async (userData) => {
 
   const user = await User.create(userData);
 
-  return { token: jwt.createToken(user) };
+  return { token: jwt.createToken(user.dataValues) };
 };
 
 const login = async ({ email, password }) => {
@@ -110,8 +105,6 @@ const login = async ({ email, password }) => {
   const user = await User.findAll({ where: { email, password } });
 
   if (!user.length) throw new Error('Invalid fields');
-
-  console.log(user[0].dataValues);
 
   return { token: jwt.createToken(user[0].dataValues) };
 };
