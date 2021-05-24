@@ -1,5 +1,5 @@
 const jwt = require('../helpers/jwt');
-const { BlogPost, Category, User } = require('../models');
+const { BlogPost, Category, PostsCategory, User } = require('../models');
 
 const verifyToken = (headers) => {
   if (!headers.authorization) {
@@ -66,7 +66,7 @@ const getAll = async (headers) => {
       attributes: { exclude: ['userId'] },
       include: [
         { model: User, as: 'user', attributes: { exclude: ['password'] } },
-        { model: Category, as: 'categories' },
+        { model: Category, as: 'categories', through: { attributes: [] } },
       ],
     },
   );

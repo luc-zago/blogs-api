@@ -19,6 +19,7 @@ const getAll = async (req, res) => {
 
     return res.status(OK).json(results);
   } catch (error) {
+    console.error(error);
     return res.status(UNAUTHORIZED).json({ message: error.message });
   }
 };
