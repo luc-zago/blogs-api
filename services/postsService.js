@@ -1,5 +1,5 @@
 const jwt = require('../helpers/jwt');
-const { BlogPost, Category } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 
 const verifyToken = (headers) => {
   if (!headers.authorization) {
@@ -58,13 +58,21 @@ const checkCategories = async (categoryIds, counter) => {
 //   }
 // };
 
-// const getAll = async (headers) => {
-//   verifyToken(headers);
+const getAll = async (headers) => {
+  verifyToken(headers);
 
-//   const categories = await Category.findAll();
+  const posts = await BlogPost.findAll(
+    {
+      attributes: { exclude: ['userId'] },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories' },
+      ],
+    },
+  );
 
-//   return categories;
-// };
+  return posts;
+};
 
 // const getById = async (id) => {
 //   const result = await productModel.getById(id);
@@ -102,7 +110,7 @@ const add = async ({ headers, body: { title, content, categoryIds } }) => {
 // };
 
 module.exports = {
-  // getAll,
+  getAll,
   // getById,
   add,
   // update,

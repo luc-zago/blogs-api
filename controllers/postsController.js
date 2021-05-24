@@ -1,6 +1,6 @@
 const postsService = require('../services/postsService');
 
-// const OK = 200;
+const OK = 200;
 const CREATE = 201;
 const BAD_REQUEST = 400;
 const UNAUTHORIZED = 401;
@@ -13,15 +13,15 @@ const UNAUTHORIZED = 401;
 //   },
 // };
 
-// const getAll = async (req, res) => {
-//   try {
-//     const results = await categoriesService.getAll(req.headers);
+const getAll = async (req, res) => {
+  try {
+    const results = await postsService.getAll(req.headers);
 
-//     return res.status(OK).json(results);
-//   } catch (error) {
-//     return res.status(UNAUTHORIZED).json({ message: error.message });
-//   }
-// };
+    return res.status(OK).json(results);
+  } catch (error) {
+    return res.status(UNAUTHORIZED).json({ message: error.message });
+  }
+};
 
 // const getById = async (req, res) => {
 //   try {
@@ -94,7 +94,7 @@ const add = async (req, res) => {
 // };
 
 module.exports = {
-  // getAll,
+  getAll,
   // getById,
   add,
   // update,
