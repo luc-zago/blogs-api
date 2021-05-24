@@ -1,5 +1,5 @@
 const jwt = require('../helpers/jwt');
-const { BlogPost, Category, PostsCategory, User } = require('../models');
+const { BlogPost, Category, User } = require('../models');
 
 const verifyToken = (headers) => {
   if (!headers.authorization) {
