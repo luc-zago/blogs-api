@@ -70,23 +70,23 @@ const verifyToken = (headers) => {
 //   return sale;
 // };
 
-// const getById = async (id) => {
-//   const result = await salesModel.getById(id);
-
-//   if(!result) {
-//     const ERROR_MESSAGE = 'Sale not found';
-//     throw new Error(ERROR_MESSAGE);
-//   }
-
-//   return result;
-// };
-
 const getAll = async (headers) => {
   verifyToken(headers);
 
   const users = await User.findAll();
 
   return users;
+};
+
+const getById = async ({ params: { id }, headers }) => {
+  verifyToken(headers);
+  const user = await User.findAll({ where: { id } });
+
+  if (!user.length) {
+    throw new Error('User does not exist');
+  }
+
+  return user[0].dataValues;
 };
 
 const add = async (userData) => {
@@ -133,7 +133,7 @@ const login = async ({ email, password }) => {
 
 module.exports = {
   getAll,
-  // getById,
+  getById,
   add,
   login,
   // update,

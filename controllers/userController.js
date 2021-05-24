@@ -5,7 +5,7 @@ const OK = 200;
 const CREATE = 201;
 const BAD_REQUEST = 400;
 const UNAUTHORIZED = 401;
-// const NOT_FOUND = 404;
+const NOT_FOUND = 404;
 const CONFLICT = 409;
 // const UNPROCESS = 422;
 // const ERROR = 500;
@@ -26,22 +26,19 @@ const getAll = async (req, res) => {
   }
 };
 
-// const getById = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const results = await salesService.getById(id);
+const getById = async (req, res) => {
+  try {
+    const results = await userService.getById(req);
 
-//     res.status(OK).json(results);
-//   } catch (error) {
-//     const { message } = error;
-//     if (message.includes('found')) {
-//       objError.err.code = 'not_found';
-//       objError.err.message = error.message;
-//       res.status(NOT_FOUND).json(objError);
-//     }
-//     res.status(ERROR).json({ message: error.message });
-//   }
-// };
+    return res.status(OK).json(results);
+  } catch (error) {
+    const { message } = error;
+    if (message.includes('User')) {
+      return res.status(NOT_FOUND).json({ message: error.message });
+    }
+    return res.status(UNAUTHORIZED).json({ message: error.message });
+  }
+};
 
 const add = async (req, res) => {
   try {
@@ -108,7 +105,7 @@ const login = async (req, res) => {
 
 module.exports = {
   getAll,
-  // getById,
+  getById,
   add,
   login,
   // update,
