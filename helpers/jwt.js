@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const secret = process.env.JWT_SECRET;
-const ERR_MESSAGE = 'jwt malformed';
+const ERR_MESSAGE = 'Expired or invalid token';
 
 const jwtConfig = {
     expiresIn: '1h',

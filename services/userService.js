@@ -39,6 +39,19 @@ const validateField = (field, fieldname) => {
   }
 };
 
+const verifyToken = (headers) => {
+  if (!headers.authorization) {
+    throw new Error('Token not found');
+  }
+  const { authorization } = headers;
+  jwt.decodifyToken(authorization);
+  // if (!decoded) {
+  //   throw new Error('Expired or invalid token');
+  // }
+  // const user = await userModel.getUserByMail(decoded.email);
+  // return user;
+};
+
 //   if (typeof quantity !== 'number'
 //   || quantity < ZERO || quantity === ZERO) {
 //     throw new Error(ERR_MESSAGE);
@@ -67,6 +80,14 @@ const validateField = (field, fieldname) => {
 
 //   return result;
 // };
+
+const getAll = async (headers) => {
+  verifyToken(headers);
+
+  const users = await User.findAll();
+
+  return users;
+};
 
 const add = async (userData) => {
   validateField(userData.displayName, 'displayName');
@@ -111,6 +132,7 @@ const login = async ({ email, password }) => {
 // };
 
 module.exports = {
+  getAll,
   // getById,
   add,
   login,

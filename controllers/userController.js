@@ -4,6 +4,7 @@ const userService = require('../services/userService');
 const OK = 200;
 const CREATE = 201;
 const BAD_REQUEST = 400;
+const UNAUTHORIZED = 401;
 // const NOT_FOUND = 404;
 const CONFLICT = 409;
 // const UNPROCESS = 422;
@@ -15,16 +16,15 @@ const CONFLICT = 409;
 //   },
 // };
 
-// const getAll = async (_req, res) => {
-//   try {
-//     const results = await salesModel.getAll();
+const getAll = async (req, res) => {
+  try {
+    const results = await userService.getAll(req.headers);
 
-//     res.status(OK).json({ sales: results });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(ERROR).json({ message: error.message });
-//   }
-// };
+    return res.status(OK).json(results);
+  } catch (error) {
+    return res.status(UNAUTHORIZED).json({ message: error.message });
+  }
+};
 
 // const getById = async (req, res) => {
 //   try {
@@ -107,7 +107,7 @@ const login = async (req, res) => {
 // };
 
 module.exports = {
-  // getAll,
+  getAll,
   // getById,
   add,
   login,
